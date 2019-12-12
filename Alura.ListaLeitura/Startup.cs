@@ -13,7 +13,7 @@ namespace Alura.ListaLeitura
 {
     public class Startup
     {
-        readonly BookRepositoryBase _repositorio = new BookRepositoryBase();
+        BookRepositoryBase _repositorio = new BookRepositoryBase();
 
         public void Configure(IApplicationBuilder app)
         {
@@ -48,7 +48,7 @@ namespace Alura.ListaLeitura
 
         private Task ExibeFormulario(HttpContext context)
         {
-            var html = CarregaArquivoHtml("formulario");
+            var html = CarregaArquivoHtml("form");
             return context.Response.WriteAsync(html);
         }
 
@@ -109,9 +109,11 @@ namespace Alura.ListaLeitura
 
         private Task LivrosParaLer(HttpContext context)
         {
-            var conteudoArquivo = CarregaArquivoHtml("livrosparaler");
+            var _repo = new BookRepositoryBase();
 
-            foreach (var livro in _repositorio.ParaLer.Livros)
+            var conteudoArquivo = CarregaArquivoHtml("bookforRead");
+
+            foreach (var livro in _repo.ParaLer.Livros)
             {
                 conteudoArquivo = conteudoArquivo
                     .Replace("#NOVO-ITEM#", $"<li>{livro.Titulo} - {livro.Autor}</li>#NOVO-ITEM#");

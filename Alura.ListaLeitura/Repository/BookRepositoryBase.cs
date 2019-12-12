@@ -9,11 +9,7 @@ namespace Alura.ListaLeitura.Repository
 {
     public class BookRepositoryBase : IBookRepository
     {
-        private static readonly string nomeArquivoCSV = "C:\txt\\livros.csv";
-
-        private ReadingList _paraLer;
-        private ReadingList _lendo;
-        private ReadingList _lidos;
+        private static readonly string nomeArquivoCSV = @"C:\txt\livros.csv";
 
         public BookRepositoryBase()
         {
@@ -21,7 +17,7 @@ namespace Alura.ListaLeitura.Repository
             var arrayLendo = new List<Book>();
             var arrayLidos = new List<Book>();
 
-            using (var file = File.OpenText(BookRepositoryBase.nomeArquivoCSV))
+            using (var file = File.OpenText(nomeArquivoCSV))
             {
                 while (!file.EndOfStream)
                 {
@@ -54,22 +50,26 @@ namespace Alura.ListaLeitura.Repository
                 }
             }
 
-            _paraLer = new ReadingList("Para Ler", arrayParaLer.ToArray());
-            _lendo = new ReadingList("Lendo", arrayLendo.ToArray());
-            _lidos = new ReadingList("Lidos", arrayLidos.ToArray());
+            ParaLer = new ReadingList("Para Ler", arrayParaLer.ToArray());
+            Lendo = new ReadingList("Lendo", arrayLendo.ToArray());
+            Lidos = new ReadingList("Lidos", arrayLidos.ToArray());
         }
 
-        public ReadingList ParaLer => _paraLer;
-        public ReadingList Lendo => _lendo;
-        public ReadingList Lidos => _lidos;
+        public ReadingList ParaLer { get; }
+        public ReadingList Lendo { get; }
+        public ReadingList Lidos { get; }
 
-        public IEnumerable<Book> Todos => _paraLer.Livros.Union(_lendo.Livros).Union(_lidos.Livros);
+        public IEnumerable<Book> Todos => ParaLer.Livros.Union(Lendo.Livros).Union(Lidos.Livros);
 
         public Book BuscaLivroPorId(int id)
         {
             return Todos.FirstOrDefault(x => x.Id == id);
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="livro"></param>
         public void Incluir(Book livro)
         {
             var id = Todos.Select(l => l.Id).Max();
