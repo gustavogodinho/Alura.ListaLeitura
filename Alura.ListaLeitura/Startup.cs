@@ -14,6 +14,10 @@ namespace Alura.ListaLeitura
 {
     public class Startup
     {
+        public void ConfigureServices(IServiceCollection services)
+        {
+            services.AddRouting();
+        }
 
         public void Configure(IApplicationBuilder app)
         {
@@ -31,8 +35,6 @@ namespace Alura.ListaLeitura
             app.UseRouter(rotas);
         }
 
-      
-
         private Task CadastroNovoLivro(HttpContext context)
         {
             BookRepositoryBase _repositorio = new BookRepositoryBase();
@@ -44,13 +46,5 @@ namespace Alura.ListaLeitura
             _repositorio.Incluir(livro);
             return context.Response.WriteAsync("Livro adicionado com sucesso!");
         }
-
-        public void ConfigureServices(IServiceCollection services)
-        {
-            services.AddRouting();
-        }
-
-     
-
     }
 }
