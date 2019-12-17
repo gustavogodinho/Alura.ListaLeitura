@@ -3,14 +3,15 @@ using Alura.ListaLeitura.Repository;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Routing;
 using System;
-using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 
 namespace Alura.ListaLeitura.Services
 {
-    public class BookServices
+    public class BookRead
     {
+        HtmlServices _htmlServices = new HtmlServices();
+       
 
         public Task LivrosLendo(HttpContext context)
         {
@@ -28,7 +29,7 @@ namespace Alura.ListaLeitura.Services
         {
             var _repo = new BookRepositoryBase();
 
-            var conteudoArquivo = CarregaArquivoHtml("bookforRead");
+            var conteudoArquivo = _htmlServices.CarregaArquivoHtml("bookforRead");
 
             foreach (var livro in _repo.ParaLer.Livros)
             {
@@ -42,7 +43,7 @@ namespace Alura.ListaLeitura.Services
 
         public Task ExibeFormulario(HttpContext context)
         {
-            var html = CarregaArquivoHtml("form");
+            var html = _htmlServices.CarregaArquivoHtml("form");
             return context.Response.WriteAsync(html);
         }
 
@@ -76,22 +77,7 @@ namespace Alura.ListaLeitura.Services
             return context.Response.WriteAsync("Cadastrado com sucesso!");
         }
 
-        private string CarregaArquivoHtml(string nomeArquivo)
-        {
-            try
-            {
-                var nomeCompletoArquivo = $"Views/{nomeArquivo}.html";
-                using (var arquivo = File.OpenText(nomeCompletoArquivo))
-                {
-                    return arquivo.ReadToEnd();
-                }
-            }
-            catch (Exception e)
-            {
-                return "View não encontrada!";
-            }
 
-        }
 
     }
 }

@@ -21,13 +21,14 @@ namespace Alura.ListaLeitura
 
         public void Configure(IApplicationBuilder app)
         {
-            BookServices _bookServices = new BookServices();
+            BookRead _bookServices = new BookRead();
+            BookCreate _bookCreate = new BookCreate();
 
             var builder = new RouteBuilder(app);
             builder.MapRoute("Livros/ParaLer", _bookServices.LivrosParaLer);
             builder.MapRoute("Livros/Lendo", _bookServices.LivrosLendo);
             builder.MapRoute("Livros/Lidos", _bookServices.LivrosLidos);
-            builder.MapRoute("cadastro/novolivro/{nome}/{autor}", CadastroNovoLivro);
+            builder.MapRoute("cadastro/novolivro/{nome}/{autor}", _bookCreate.CadastroNovoLivro);
             builder.MapRoute("Livros/Detalhes/{id:int}", _bookServices.ExibeDetalhes);
             builder.MapRoute("cadastro/novolivro", _bookServices.ExibeFormulario);
             builder.MapRoute("Cadastro/Incluir", _bookServices.ProcessaFormulario);
@@ -35,16 +36,6 @@ namespace Alura.ListaLeitura
             app.UseRouter(rotas);
         }
 
-        private Task CadastroNovoLivro(HttpContext context)
-        {
-            BookRepositoryBase _repositorio = new BookRepositoryBase();
-            var livro = new Book
-            {
-                Titulo = context.GetRouteValue("nome").ToString(),
-                Autor = context.GetRouteValue("autor").ToString()
-            };
-            _repositorio.Incluir(livro);
-            return context.Response.WriteAsync("Livro adicionado com sucesso!");
-        }
+       
     }
 }
