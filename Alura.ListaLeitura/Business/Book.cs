@@ -2,6 +2,9 @@
 
 namespace Alura.ListaLeitura.Business
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public class Book
     {
         public int Id { get; set; }
@@ -9,6 +12,10 @@ namespace Alura.ListaLeitura.Business
         public string Autor { get; set; }
         public ReadingList Lista { get; set; }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
         public string Details()
         {
             var stringBuilder = new StringBuilder();
@@ -20,6 +27,10 @@ namespace Alura.ListaLeitura.Business
             return stringBuilder.ToString();
 
         }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
         public override string ToString()
         {
             return $"{Titulo} - {Autor}";

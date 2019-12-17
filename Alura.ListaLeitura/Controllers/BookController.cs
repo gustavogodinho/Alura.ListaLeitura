@@ -1,63 +1,57 @@
-﻿using Alura.ListaLeitura.Business;
-using Alura.ListaLeitura.Repository;
-using Alura.ListaLeitura.Services;
-using Microsoft.AspNetCore.Http;
+﻿using Alura.ListaLeitura.Repository;
 using Microsoft.AspNetCore.Mvc;
 using System;
-using System.Linq;
-using System.Threading.Tasks;
+
 
 namespace Alura.ListaLeitura.Controllers
 {
+    /// <inheritdoc />
     public class BookController : Controller
     {
-        HtmlServices _htmlServices = new HtmlServices();
-
-        public string Incluir(Book book)
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        public IActionResult ParaLer()
         {
-            var _repositorio = new BookRepositoryBase();
-            _repositorio.Incluir(book);
-            return "Livro adicionado com sucesso!";
+            var repo = new BookRepositoryBase();
+            ViewBag.Livros = repo.ParaLer.Livros;
+            return View($"list");
         }
 
-        public string Lendo()
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        public IActionResult Lendo()
         {
-            var _repositorio = new BookRepositoryBase();
-            return _repositorio.Lendo.ToString();
+            var repo = new BookRepositoryBase();
+            ViewBag.Livros = repo.ParaLer.Livros;
+            return View($"list");
         }
 
-        public string Lidos()
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        public IActionResult Lidos()
         {
-            var _repositorio = new BookRepositoryBase();
-            return _repositorio.Lidos.ToString();
+            var repo = new BookRepositoryBase();
+            ViewBag.Livros = repo.ParaLer.Livros;
+            return View($"list");
         }
 
-        public string ParaLer()
-        {
-            var _repo = new BookRepositoryBase();
-            var conteudoArquivo = _htmlServices.CarregaArquivoHtml("bookforRead");
-
-            foreach (var livro in _repo.ParaLer.Livros)
-            {
-                conteudoArquivo = conteudoArquivo
-                    .Replace("#NOVO-ITEM#", $"<li>{livro.Titulo} - {livro.Autor}</li>#NOVO-ITEM#");
-            }
-
-            return  conteudoArquivo.Replace("#NOVO-ITEM#", "");
-        }
-   
-        public string ExibeFormulario()
-        {
-            var html = _htmlServices.CarregaArquivoHtml("form");
-            return html;
-        }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public string Detalhes(int id)
         {
             try
             {
-                var _repositorio = new BookRepositoryBase();
-                var livro = _repositorio.BuscaLivroPorId(id);
+                var repo = new BookRepositoryBase();
+                var livro = repo.BuscaLivroPorId(id);
 
                 return livro.Details();
             }
@@ -66,27 +60,5 @@ namespace Alura.ListaLeitura.Controllers
                 return "Não encontrado!";
             }
         }
-
-        public string ProcessaFormulario(Book book)
-        {
-            try
-            {
-                var _repositorio = new BookRepositoryBase();
-                _repositorio.Incluir(book);
-
-                return "Cadastrado com sucesso!";
-            }
-            catch (Exception e)
-            {
-                return "Erro ao cadastrar";
-            }
-        }
-
-        public string Teste()
-        {
-            return "Nova funcionalidade";
-        }
-
-
     }
 }
