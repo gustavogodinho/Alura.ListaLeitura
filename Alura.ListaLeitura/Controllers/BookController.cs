@@ -8,6 +8,7 @@ namespace Alura.ListaLeitura.Controllers
     /// <inheritdoc />
     public class BookController : Controller
     {
+
         /// <summary>
         /// 
         /// </summary>

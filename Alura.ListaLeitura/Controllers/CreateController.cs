@@ -31,7 +31,7 @@ namespace Alura.ListaLeitura.Controllers
         /// <returns></returns>
         public IActionResult ViewForm()
         {
-            return new ViewResult { ViewName = "Book"};
+            return new ViewResult { ViewName = "form"};
         }
 
 
