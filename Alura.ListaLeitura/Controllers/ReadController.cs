@@ -8,24 +8,24 @@ using System.Threading.Tasks;
 
 namespace Alura.ListaLeitura.Services
 {
-    public class BookRead
+    public class ReadController
     {
         HtmlServices _htmlServices = new HtmlServices();
        
 
-        public Task LivrosLendo(HttpContext context)
+        public Task Lendo(HttpContext context)
         {
             BookRepositoryBase _repositorio = new BookRepositoryBase();
             return context.Response.WriteAsync(_repositorio.Lendo.ToString());
         }
 
-        public Task LivrosLidos(HttpContext context)
+        public Task Lidos(HttpContext context)
         {
             BookRepositoryBase _repositorio = new BookRepositoryBase();
             return context.Response.WriteAsync(_repositorio.Lidos.ToString());
         }
 
-        public Task LivrosParaLer(HttpContext context)
+        public Task ParaLer(HttpContext context)
         {
             var _repo = new BookRepositoryBase();
 
@@ -41,6 +41,11 @@ namespace Alura.ListaLeitura.Services
             return context.Response.WriteAsync(conteudoArquivo);
         }
 
+        internal Task Incluir(HttpContext context)
+        {
+            throw new NotImplementedException();
+        }
+
         public Task ExibeFormulario(HttpContext context)
         {
             var html = _htmlServices.CarregaArquivoHtml("form");
@@ -48,7 +53,7 @@ namespace Alura.ListaLeitura.Services
         }
 
 
-        public Task ExibeDetalhes(HttpContext context)
+        public Task Detalhes(HttpContext context)
         {
             try
             {
@@ -75,6 +80,11 @@ namespace Alura.ListaLeitura.Services
             _repositorio.Incluir(livro);
 
             return context.Response.WriteAsync("Cadastrado com sucesso!");
+        }
+
+        public string Teste()
+        {
+            return "Nova funcionalidade";
         }
 
 

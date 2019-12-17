@@ -17,23 +17,27 @@ namespace Alura.ListaLeitura
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddRouting();
+            services.AddMvc();
         }
 
         public void Configure(IApplicationBuilder app)
         {
-            BookRead _bookServices = new BookRead();
-            BookCreate _bookCreate = new BookCreate();
+            //ReadController _bookServices = new ReadController();
+            //CreateController _bookCreate = new CreateController();
 
-            var builder = new RouteBuilder(app);
-            builder.MapRoute("Livros/ParaLer", _bookServices.LivrosParaLer);
-            builder.MapRoute("Livros/Lendo", _bookServices.LivrosLendo);
-            builder.MapRoute("Livros/Lidos", _bookServices.LivrosLidos);
-            builder.MapRoute("cadastro/novolivro/{nome}/{autor}", _bookCreate.CadastroNovoLivro);
-            builder.MapRoute("Livros/Detalhes/{id:int}", _bookServices.ExibeDetalhes);
-            builder.MapRoute("cadastro/novolivro", _bookServices.ExibeFormulario);
-            builder.MapRoute("Cadastro/Incluir", _bookServices.ProcessaFormulario);
-            var rotas = builder.Build();
-            app.UseRouter(rotas);
+            app.UseMvcWithDefaultRoute();
+
+            //var builder = new RouteBuilder(app);
+            //builder.MapRoute("{controller}/{action}", null);
+            //builder.MapRoute("Livros/ParaLer", _bookServices.ParaLer);
+            //builder.MapRoute("Livros/Lendo", _bookServices.Lendo);
+            //builder.MapRoute("Livros/Lidos", _bookServices.Lidos);
+            //builder.MapRoute("cadastro/novolivro/{nome}/{autor}", _bookCreate.NovoLivro);
+            //builder.MapRoute("Livros/Detalhes/{id:int}", _bookServices.Detalhes);
+            //builder.MapRoute("cadastro/ExibeFormulario", _bookServices.ExibeFormulario);
+            //builder.MapRoute("Cadastro/Incluir", _bookServices.Incluir);
+            //var rotas = builder.Build();
+            //app.UseRouter(rotas);
         }
 
        

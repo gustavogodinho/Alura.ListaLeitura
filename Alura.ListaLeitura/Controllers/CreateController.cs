@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace Alura.ListaLeitura.Services
 {
-    public class BookCreate
+    public class CreateController
     {
-        public Task CadastroNovoLivro(HttpContext context)
+        public Task NovoLivro(HttpContext context)
         {
             BookRepositoryBase _repositorio = new BookRepositoryBase();
             var livro = new Book

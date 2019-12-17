@@ -13,9 +13,9 @@ namespace Alura.ListaLeitura.Repository
 
         public BookRepositoryBase()
         {
-            var arrayParaLer = new List<Book>();
-            var arrayLendo = new List<Book>();
-            var arrayLidos = new List<Book>();
+            List<Book> arrayParaLer = new List<Book>();
+            List<Book> arrayLendo = new List<Book>();
+            List<Book> arrayLidos = new List<Book>();
 
             using (var file = File.OpenText(nomeArquivoCSV))
             {
